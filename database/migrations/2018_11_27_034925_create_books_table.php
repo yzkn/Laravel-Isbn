@@ -114,6 +114,8 @@ class CreateBooksTable extends Migration
             $table->text('summary__pubdate')->nullable($value = true);
             $table->text('summary__cover')->nullable($value = true);
             $table->text('summary__author')->nullable($value = true);
+
+            $table->integer('userid');
         });
     }
 

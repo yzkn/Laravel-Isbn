@@ -31,7 +31,7 @@ class BookController extends Controller
      */
     public function create()
     {
-        //
+        return view('books.create');
     }
 
     /**
@@ -42,7 +42,14 @@ class BookController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $user = Auth::user();
+
+        $book = new Book;
+        $book->summary__isbn = $request->summary__isbn;
+        // TODO
+        $book->userid = $user->id;
+        $book->save();
+        return redirect('books/' . $book->id);
     }
 
     /**
