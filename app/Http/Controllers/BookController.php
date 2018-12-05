@@ -19,7 +19,8 @@ class BookController extends Controller
      */
     public function index()
     {
-        $books = Book::all();
+        // $books = Book::all();
+        $books = Book::latest()->get();
         return view('book.index', ['books' => $books]);
     }
 
@@ -50,9 +51,9 @@ class BookController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Book $book)
     {
-        //
+        return view('book.show', ['book' => $book]);
     }
 
     /**

@@ -17,8 +17,8 @@ class BooksTableSeeder extends Seeder
             $book['onix__RecordReference'] = '999999999999' . $i;
             $book['onix__ProductIdentifier__IDValue'] = '999999999999' . $i;
             $book['onix__DescriptiveDetail__TitleDetail__TitleText'] = 'タイトル' . $i;
-            $book['summary__isbn'] = 'タイトル' . $i;
-            $book['summary__title'] = '999999999999' . $i;
+            $book['summary__isbn'] = '999999999999' . $i;
+            $book['summary__title'] = 'タイトル' . $i;
             $book->save();
         }
     }

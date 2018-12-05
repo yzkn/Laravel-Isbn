@@ -20,7 +20,7 @@
             <tbody>
                 @foreach ($books as $book)
                     <tr>
-                        <td><a href="{{ url('book/'.$book->id) }}">{{ $book->onix__RecordReference }}</a></td>
+                        <td><a href="{{ url('books/'.$book->id) }}">{{ $book->onix__RecordReference }}</a></td>
                         <td>{{ $book->onix__DescriptiveDetail__TitleDetail__TitleText }}</td>
                         <td>{{ $book->onix__DescriptiveDetail__Collection__TitleDetail }}</td>
                         <td>{{ str_replace($book->onix__DescriptiveDetail__TitleDetail__TitleText, '', $book->onix__DescriptiveDetail__TitleDetail__TitleText) }}</td>
