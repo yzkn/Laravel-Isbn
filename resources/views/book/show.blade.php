@@ -20,11 +20,11 @@
         <dt class="col-md-2">{{ __('ISBN') }}</dt>
         <dd class="col-md-10">{{ $book->summary__isbn }}</dd>
         <dt class="col-md-2">{{ __('Title') }}</dt>
-        <dd class="col-md-10">{{ $book->summary__title}}</dd>
+        <dd class="col-md-10">{{ e($book->summary__title) }}</dd>
         <dt class="col-md-2">{{ __('Publisher') }}</dt>
-        <dd class="col-md-10">{{ $book->summary__publisher }}</dd>
+        <dd class="col-md-10">{{ e($book->summary__publisher) }}</dd>
         <dt class="col-md-2">{{ __('Pubdate') }}</dt>
-        <dd class="col-md-10">{{ $book->summary__pubdate }}</dd>
+        <dd class="col-md-10">{{ e($book->summary__pubdate) }}</dd>
         <dt class="col-md-2">{{ __('Cover') }}</dt>
         <dd class="col-md-10">
         @if (!empty($book->summary__cover) && exif_imagetype($book->summary__cover))
@@ -34,12 +34,7 @@
         @endif
         </dd>
         <dt class="col-md-2">{{ __('Author') }}</dt>
-        <dd class="col-md-10">{{ $book->summary__author }}</dd>
-
-
-
-
-
+        <dd class="col-md-10">{{ e($book->summary__author) }}</dd>
     </dl>
     <dl class="row">
         <dt class="col-md-2">{{ __('Created') }}:</dt>

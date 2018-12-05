@@ -12,18 +12,26 @@
                 <tr>
                     <th>{{ __('ISBN') }}</th>
                     <th>{{ __('Title') }}</th>
-                    <th>{{ __('onix__DescriptiveDetail__Collection__TitleDetail') }}</th>
-                    <th>{{ __('No') }}</th>
+                    <th>{{ __('Series') }}</th>
+                    <th>{{ __('Sub') }}</th>
+                    <th>{{ __('Volume') }}</th>
+                    <th>{{ __('Publisher') }}</th>
+                    <th>{{ __('Pubdate') }}</th>
+                    <th>{{ __('Author') }}</th>
                     <th>{{ __('CreatedAt') }}</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach ($books as $book)
                     <tr>
-                        <td><a href="{{ url('books/'.$book->id) }}">{{ $book->onix__RecordReference }}</a></td>
-                        <td>{{ $book->onix__DescriptiveDetail__TitleDetail__TitleText }}</td>
-                        <td>{{ $book->onix__DescriptiveDetail__Collection__TitleDetail }}</td>
-                        <td>{{ str_replace($book->onix__DescriptiveDetail__TitleDetail__TitleText, '', $book->onix__DescriptiveDetail__TitleDetail__TitleText) }}</td>
+                        <td><a href="{{ url('books/'.$book->id) }}">{{ $book->summary__isbn }}</a></td>
+                        <td>{{ $book->summary__title }}</td>
+                        <td>{{ $book->summary__series }}</td>
+                        <td>{{ str_replace($book->summary__series, '', $book->onix__DescriptiveDetail__TitleDetail__TitleText) }}</td>
+                        <td>{{ $book->summary__volume }}</td>
+                        <td>{{ $book->summary__publisher }}</td>
+                        <td>{{ $book->summary__pubdate }}</td>
+                        <td>{{ $book->summary__author }}</td>
                         <td>{{ $book->created_at }}</td>
                     </tr>
                 @endforeach
