@@ -35,6 +35,19 @@
                         <td>{{ $book->created_at }}</td>
                     </tr>
                 @endforeach
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td><a href="{{ url('books/create') }}" class="btn btn-info">{{ __('Create') }}</a></td>
+                    </tr>
+
+
             </tbody>
         </table>
     </div>
