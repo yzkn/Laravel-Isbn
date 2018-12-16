@@ -23,7 +23,7 @@
                 @foreach ($books as $book)
                     <tr>
                         <td>
-                            @if (!empty($book->summary__cover) && exif_imagetype($book->summary__cover))
+                            @if (!empty($book->summary__cover) && fsockopen(parse_url($book->summary__cover, PHP_URL_HOST), 80, $errno, $errstr, 10) && exif_imagetype($book->summary__cover))
                                 <a href="{{ url('books/'.$book->id) }}">
                                     <img src="{{ $book->summary__cover }}" class="img-thumbnail summary__cover" />
                                 </a>

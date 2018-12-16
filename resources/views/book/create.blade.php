@@ -12,7 +12,7 @@
         @slot('title', 'Error')
     @endcomponent
 
-    <h1>{{ $title }}</h1>
+    <h1><a href="{{ url('books') }}" class="text-dark">{{ $title }}</a></h1>
     @if (count($errors) > 0)
         <ul>
             @foreach($errors->all() as $error)
@@ -21,23 +21,33 @@
         </ul>
     @endif
     <form action="{{ url('books') }}" method="POST" enctype="multipart/form-data">
-        <button class="btn btn-primary" button type="button" id="callOpenbdApi">{{ __('Acquire')}}</button>
-        <dl class="row">
-            <dt class="col-md-2">{{ __('ISBN') }}</dt>
-            <dd class="col-md-10"><input type="text" class="form-control" name="summary__isbn" id="summary__isbn" value=""></dd>
-            <dt class="col-md-2">{{ __('Cover') }}</dt>
-            <dd class="col-md-10"><input type="text" class="form-control" name="summary__cover" id="summary__cover" value=""></dd>
-            <dt class="col-md-2">{{ __('Title') }}</dt>
-            <dd class="col-md-10"><input type="text" class="form-control" name="summary__title" id="summary__title" value=""></dd>
-            <dt class="col-md-2">{{ __('Author') }}</dt>
-            <dd class="col-md-10"><input type="text" class="form-control" name="summary__author" id="summary__author" value=""></dd>
-            <dt class="col-md-2">{{ __('Publisher') }}</dt>
-            <dd class="col-md-10"><input type="text" class="form-control" name="summary__publisher" id="summary__publisher" value=""></dd>
-            <dt class="col-md-2">{{ __('Pubdate') }}</dt>
-            <dd class="col-md-10"><input type="text" class="form-control" name="summary__pubdate" id="summary__pubdate" value=""></dd>
-        </dl>
-        {{ csrf_field() }}
-        <button class="btn btn-success" type="submit">{{ __('Create')}}</button>
+        <div class="card">
+            <div class="card-body">
+                <dl class="row">
+                    <dt class="col-md-2">{{ __('ISBN') }}</dt>
+                    <dd class="col-md-10"><input type="text" class="form-control" name="summary__isbn" id="summary__isbn" value=""></dd>
+                    <button class="btn btn-primary" button type="button" id="callOpenbdApi">{{ __('Acquire')}}</button>
+                </dl>
+            </div>
+            <div class="card-body">
+                <dl class="row">
+                    <dt class="col-md-2">{{ __('Cover') }}</dt>
+                    <dd class="col-md-10"><input type="text" class="form-control" name="summary__cover" id="summary__cover" value=""></dd>
+                    <dt class="col-md-2">{{ __('Title') }}</dt>
+                    <dd class="col-md-10"><input type="text" class="form-control" name="summary__title" id="summary__title" value=""></dd>
+                    <dt class="col-md-2">{{ __('Author') }}</dt>
+                    <dd class="col-md-10"><input type="text" class="form-control" name="summary__author" id="summary__author" value=""></dd>
+                    <dt class="col-md-2">{{ __('Publisher') }}</dt>
+                    <dd class="col-md-10"><input type="text" class="form-control" name="summary__publisher" id="summary__publisher" value=""></dd>
+                    <dt class="col-md-2">{{ __('Pubdate') }}</dt>
+                    <dd class="col-md-10"><input type="text" class="form-control" name="summary__pubdate" id="summary__pubdate" value=""></dd>
+                </dl>
+            </div>
+            <div class="card-footer text-muted">
+                {{ csrf_field() }}
+                <button class="btn btn-success" type="submit">{{ __('Create')}}</button>
+            </div>
+        </div>
     </form>
 </div>
 @endsection

@@ -79,9 +79,11 @@ class BookController extends Controller
      */
     public function edit($id)
     {
+        $user = Auth::user();
+
         $book = Book::find($id);
         if (isset($book)) {
-            if ($auth_user->id === $book->user->id) {
+            if ($user->id === $book->userid) {
                 return view('book.edit', ['book' => $book]);
             }
         }
@@ -103,8 +105,8 @@ class BookController extends Controller
         if (isset($book)) {
             $book->fill($request->all());
             $book->userid = $user->id;
-            $post->save();
-            return redirect('posts/' . $post->id);
+            $book->save();
+            return redirect('books/' . $book->id);
         }
         return redirect('/books');
     }

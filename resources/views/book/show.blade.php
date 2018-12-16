@@ -5,50 +5,61 @@
 @endphp
 @section('content')
 <div class="container">
-    <h1>{{ $title }}</h1>
-    <div class="edit">
-        <a href="{{ url('book/'.$book->id.'/edit') }}" class="btn btn-primary">
-            {{ __('Edit') }}
-        </a>
-        @component('components.btn-del')
-            @slot('table', 'books')
-            @slot('id', $book->id)
-            @slot('title', $book->summary__title)
-        @endcomponent
+    <h1><a href="{{ url('books/') }}" class="text-dark">{{ $title }}</a></h1>
+    <div class="card">
+        <div class="card-header">
+            {{ $book->summary__title }}
+        </div>
+        <div class="card-body">
+            <dl class="row">
+                <dt class="col-md-2">{{ __('ISBN') }}</dt>
+                <dd class="col-md-10">{{ $book->summary__isbn }}</dd>
+                <dt class="col-md-2">{{ __('Cover') }}</dt>
+                <dd class="col-md-10">
+                @if (!empty($book->summary__cover) && fsockopen(parse_url($book->summary__cover, PHP_URL_HOST), 80, $errno, $errstr, 10) && exif_imagetype($book->summary__cover))
+                    <a href="{{ $book->summary__cover }}">
+                        <img src="{{ $book->summary__cover }}" class="img-thumbnail summary__cover" />
+                    </a>
+                @endif
+                </dd>
+                <!--
+                <dt class="col-md-2">{{ __('Title') }}</dt>
+                <dd class="col-md-10">{{ e($book->summary__title) }}</dd>
+                -->
+                <dt class="col-md-2">{{ __('Author') }}</dt>
+                <dd class="col-md-10">{{ e($book->summary__author) }}</dd>
+                <dt class="col-md-2">{{ __('Publisher') }}</dt>
+                <dd class="col-md-10">{{ e($book->summary__publisher) }}</dd>
+                <dt class="col-md-2">{{ __('Pubdate') }}</dt>
+                <dd class="col-md-10">{{ e($book->summary__pubdate) }}</dd>
+            </dl>
+            <dl class="row">
+                <dt class="col-md-2">{{ __('Created') }}:</dt>
+                <dd class="col-md-10">
+                    <time itemprop="dateCreated" datetime="{{ $book->created_at }}">
+                        {{ $book->created_at }}
+                    </time>
+                </dd>
+                <dt class="col-md-2">{{ __('Updated') }}:</dt>
+                <dd class="col-md-10">
+                    <time itemprop="dateModified" datetime="{{ $book->updated_at }}">
+                        {{ $book->updated_at }}
+                    </time>
+                </dd>
+            </dl>
+        </div>
+        <div class="card-footer text-muted">
+            <div class="edit">
+                <a href="{{ url('books/'.$book->id.'/edit') }}" class="btn btn-primary">
+                    {{ __('Edit') }}
+                </a>
+                @component('components.btn-del')
+                    @slot('table', 'books')
+                    @slot('id', $book->id)
+                    @slot('title', $book->summary__title)
+                @endcomponent
+            </div>
+        </div>
     </div>
-    <dl class="row">
-        <dt class="col-md-2">{{ __('ISBN') }}</dt>
-        <dd class="col-md-10">{{ $book->summary__isbn }}</dd>
-        <dt class="col-md-2">{{ __('Cover') }}</dt>
-        <dd class="col-md-10">
-        @if (!empty($book->summary__cover) && exif_imagetype($book->summary__cover))
-            <a href="{{ $book->summary__cover }}">
-                <img src="{{ $book->summary__cover }}" class="img-thumbnail summary__cover" />
-            </a>
-        @endif
-        </dd>
-        <dt class="col-md-2">{{ __('Title') }}</dt>
-        <dd class="col-md-10">{{ e($book->summary__title) }}</dd>
-        <dt class="col-md-2">{{ __('Author') }}</dt>
-        <dd class="col-md-10">{{ e($book->summary__author) }}</dd>
-        <dt class="col-md-2">{{ __('Publisher') }}</dt>
-        <dd class="col-md-10">{{ e($book->summary__publisher) }}</dd>
-        <dt class="col-md-2">{{ __('Pubdate') }}</dt>
-        <dd class="col-md-10">{{ e($book->summary__pubdate) }}</dd>
-    </dl>
-    <dl class="row">
-        <dt class="col-md-2">{{ __('Created') }}:</dt>
-        <dd class="col-md-10">
-            <time itemprop="dateCreated" datetime="{{ $book->created_at }}">
-                {{ $book->created_at }}
-            </time>
-        </dd>
-        <dt class="col-md-2">{{ __('Updated') }}:</dt>
-        <dd class="col-md-10">
-            <time itemprop="dateModified" datetime="{{ $book->updated_at }}">
-                {{ $book->updated_at }}
-            </time>
-        </dd>
-    </dl>
 </div>
 @endsection
