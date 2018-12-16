@@ -15,3 +15,5 @@ Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');
 Route::resource('books', 'BookController');
+
+Route::get('books/bd/{isbn}', 'BookController@bd')->where('isbn', '[-0-9]{13,}');

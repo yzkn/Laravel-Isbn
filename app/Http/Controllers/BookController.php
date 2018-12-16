@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Book;
+use Auth;
 use Illuminate\Http\Request;
 
 class BookController extends Controller
@@ -31,7 +32,7 @@ class BookController extends Controller
      */
     public function create()
     {
-        return view('books.create');
+        return view('book.create');
     }
 
     /**
@@ -46,7 +47,14 @@ class BookController extends Controller
 
         $book = new Book;
         $book->summary__isbn = $request->summary__isbn;
-        // TODO
+        $book->onix__RecordReference = $request->summary__isbn;
+        $book->onix__ProductIdentifier__IDValue = $request->summary__isbn;
+        $book->summary__cover = $request->summary__cover;
+        $book->summary__title = $request->summary__title;
+        $book->onix__DescriptiveDetail__TitleDetail__TitleText = $request->summary__title;
+        $book->summary__author = $request->summary__author;
+        $book->summary__publisher = $request->summary__publisher;
+        $book->summary__pubdate = $request->summary__pubdate;
         $book->userid = $user->id;
         $book->save();
         return redirect('books/' . $book->id);
@@ -71,7 +79,13 @@ class BookController extends Controller
      */
     public function edit($id)
     {
-        //
+        $book = Book::find($id);
+        if (isset($book)) {
+            if ($auth_user->id === $book->user->id) {
+                return view('book.edit', ['book' => $book]);
+            }
+        }
+        return redirect('/books');
     }
 
     /**
@@ -83,7 +97,16 @@ class BookController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $user = Auth::user();
+
+        $book = Book::find($id);
+        if (isset($book)) {
+            $book->fill($request->all());
+            $book->userid = $user->id;
+            $post->save();
+            return redirect('posts/' . $post->id);
+        }
+        return redirect('/books');
     }
 
     /**
@@ -94,6 +117,18 @@ class BookController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $book = Book::find($id);
+        if (isset($book)) {
+            $book->delete();
+        }
+        return redirect('/books');
+    }
+
+    public function bd($isbn)
+    {
+        $url = 'https://api.openbd.jp/v1/get?isbn=' . $isbn;
+        $json = file_get_contents($url);
+        $json = mb_convert_encoding($json, 'UTF8', 'ASCII,JIS,UTF-8,EUC-JP,SJIS-WIN');
+        return json_decode($json);
     }
 }
