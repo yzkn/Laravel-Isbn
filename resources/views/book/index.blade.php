@@ -16,6 +16,8 @@
                     <th>{{ __('Author') }}</th>
                     <th>{{ __('Publisher') }}</th>
                     <th>{{ __('Pubdate') }}</th>
+                    <th>{{ __('Series') }}</th>
+                    <th>{{ __('Volume') }}</th>
                     <th>{{ __('CreatedAt') }}</th>
                 </tr>
             </thead>
@@ -34,10 +36,14 @@
                         <td>{{ $book->summary__author }}</td>
                         <td>{{ $book->summary__publisher }}</td>
                         <td>{{ $book->summary__pubdate }}</td>
+                        <td>{{ $book->summary__series }}</td>
+                        <td>{{ $book->summary__volume }}</td>
                         <td>{{ $book->created_at }}</td>
                     </tr>
                 @endforeach
                 <tr>
+                    <td></td>
+                    <td></td>
                     <td></td>
                     <td></td>
                     <td></td>

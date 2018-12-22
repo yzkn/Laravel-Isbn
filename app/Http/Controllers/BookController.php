@@ -55,6 +55,8 @@ class BookController extends Controller
         $book->summary__author = $request->summary__author;
         $book->summary__publisher = $request->summary__publisher;
         $book->summary__pubdate = $request->summary__pubdate;
+        $book->summary__series = $request->summary__series;
+        $book->summary__volume = $request->summary__volume;
         $book->userid = $user->id;
         $book->save();
         return redirect('books/' . $book->id);

@@ -19,7 +19,7 @@ class CsvController extends Controller
     protected $eol_after = "\r\n";
     protected $extension_csv = 'csv';
     protected $filename_export = 'out.csv';
-    protected $required_header = array('isbn', 'cover', 'title', 'author', 'publisher', 'pubdate');
+    protected $required_header = array('isbn', 'cover', 'title', 'author', 'publisher', 'pubdate', 'series', 'volume');
     protected $locale_jajp = 'ja_JP.UTF-8';
     protected $mimetype_csv = 'text/csv';
     protected $mimetype_text = 'text/plain';
@@ -137,6 +137,8 @@ class CsvController extends Controller
                 $book->summary__author = $row_utf8[3];
                 $book->summary__publisher = $row_utf8[4];
                 $book->summary__pubdate = $row_utf8[5];
+                $book->summary__series = $row_utf8[6];
+                $book->summary__volume = $row_utf8[7];
                 $book->userid = $user->id;
                 $book->save();
 

@@ -41,6 +41,10 @@
                     <dd class="col-md-10"><input type="text" class="form-control" name="summary__publisher" id="summary__publisher" value=""></dd>
                     <dt class="col-md-2">{{ __('Pubdate') }}</dt>
                     <dd class="col-md-10"><input type="text" class="form-control" name="summary__pubdate" id="summary__pubdate" value=""></dd>
+                    <dt class="col-md-2">{{ __('Series') }}</dt>
+                    <dd class="col-md-10"><input type="text" class="form-control" name="summary__series" id="summary__series" value=""></dd>
+                    <dt class="col-md-2">{{ __('Volume') }}</dt>
+                    <dd class="col-md-10"><input type="text" class="form-control" name="summary__volume" id="summary__volume" value=""></dd>
                 </dl>
             </div>
             <div class="card-footer text-muted">

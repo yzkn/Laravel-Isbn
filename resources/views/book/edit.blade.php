@@ -35,6 +35,10 @@
                     <dd class="col-md-10"><input type="text" class="form-control" name="summary__publisher" id="summary__publisher" value="{{ $book->summary__publisher }}"></dd>
                     <dt class="col-md-2">{{ __('Pubdate') }}</dt>
                     <dd class="col-md-10"><input type="text" class="form-control" name="summary__pubdate" id="summary__pubdate" value="{{ $book->summary__pubdate }}"></dd>
+                    <dt class="col-md-2">{{ __('Series') }}</dt>
+                    <dd class="col-md-10"><input type="text" class="form-control" name="summary__series" id="summary__series" value="{{ $book->summary__series }}"></dd>
+                    <dt class="col-md-2">{{ __('Volume') }}</dt>
+                    <dd class="col-md-10"><input type="text" class="form-control" name="summary__volume" id="summary__volume" value="{{ $book->summary__volume }}"></dd>
                 </dl>
             </div>
             <div class="card-footer text-muted">
