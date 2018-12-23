@@ -34,7 +34,7 @@ $(function () {
                     if (data[0].summary.series == '' || data[0].summary.volume == '') {
                         var title = data[0].summary.title;
 
-                        var pat1 = /(\s*[\[(<{＜≪《「『【〔［｛〈（〝“‘]*?[#＃♯第]*[0-9]+[巻]*[\])>}＞≫》」』】〕］｝〉）〟”’]*\s*)/;
+                        var pat1 = /(\s*[\[(<{＜≪《「『【〔［｛〈（〝“‘]*?[#＃♯第]*[0-9０-９]+[巻]*[\])>}＞≫》」』】〕］｝〉）〟”’]*\s*)/;
                         var titlearr = title.split(pat1);
                         var series = title;
                         if (titlearr.length > 1) {
