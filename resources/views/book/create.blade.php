@@ -26,7 +26,7 @@
                 <dl class="row">
                     <dt class="col-md-2">{{ __('ISBN') }}</dt>
                     <dd class="col-md-10"><input type="text" class="form-control" name="summary__isbn" id="summary__isbn" value=""></dd>
-                    <button class="btn btn-primary" button type="button" id="callOpenbdApi">{{ __('Acquire')}}</button>
+                    <button class="btn btn-primary" type="button" id="callOpenbdApi">{{ __('Acquire')}}</button>
                 </dl>
             </div>
             <div class="card-body">
