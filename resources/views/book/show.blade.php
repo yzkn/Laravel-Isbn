@@ -54,6 +54,7 @@
         </div>
         <div class="card-footer text-muted">
             <div class="edit">
+                <a href="{{ url('books/create') }}" class="btn btn-info">{{ __('Create') }}</a>
                 <a href="{{ url('books/'.$book->id.'/edit') }}" class="btn btn-primary">
                     {{ __('Edit') }}
                 </a>
