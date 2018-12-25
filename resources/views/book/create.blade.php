@@ -25,7 +25,7 @@
             <div class="card-body">
                 <dl class="row">
                     <dt class="col-md-2">{{ __('ISBN') }}</dt>
-                    <dd class="col-md-10"><input type="text" class="form-control" name="summary__isbn" id="summary__isbn" value=""></dd>
+                    <dd class="col-md-10"><input type="text" class="form-control" name="summary__isbn" id="summary__isbn" value="{{ $isbn }}"></dd>
                     <button class="btn btn-primary" type="button" id="callOpenbdApi">{{ __('Acquire')}}</button>
                 </dl>
             </div>

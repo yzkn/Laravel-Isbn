@@ -18,6 +18,7 @@ $(function () {
 
     $('#callOpenbdApi').click(function (e) {
         const isbn = $('#summary__isbn').val().replace(/-/g, '').replace('/ /g', '');
+        $('#summary__isbn').val(isbn);
         if ((!isNaN(isbn)) && ((isbn.toString()).length == 13)) {
             const url = '/books/bd/' + isbn;
             $.getJSON(url, function (data) {

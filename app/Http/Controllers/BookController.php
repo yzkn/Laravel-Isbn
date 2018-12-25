@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Book;
 use Auth;
-use Illuminate\Http\Request;
+use Request;
 
 class BookController extends Controller
 {
@@ -32,7 +32,15 @@ class BookController extends Controller
      */
     public function create()
     {
-        return view('book.create');
+        if (strlen(Request::input('isbn')) != 0) {
+            $isbn = Request::input('isbn');
+        } else if (strlen(Request::input('summary__isbn')) != 0) {
+            $isbn = Request::input('summary__isbn');
+        } else {
+            $isbn = '';
+        }
+
+        return view('book.create', ['isbn' => $isbn]);
     }
 
     /**
@@ -45,10 +53,14 @@ class BookController extends Controller
     {
         $user = Auth::user();
 
+        $isbn = $request->summary__isbn;
+        $isbn = str_replace('-', '', $isbn);
+        $isbn = str_replace(' ', '', $isbn);
+
         $book = new Book;
-        $book->summary__isbn = $request->summary__isbn;
-        $book->onix__RecordReference = $request->summary__isbn;
-        $book->onix__ProductIdentifier__IDValue = $request->summary__isbn;
+        $book->summary__isbn = $isbn;
+        $book->onix__RecordReference = $isbn;
+        $book->onix__ProductIdentifier__IDValue = $isbn;
         $book->summary__cover = $request->summary__cover;
         $book->summary__title = $request->summary__title;
         $book->onix__DescriptiveDetail__TitleDetail__TitleText = $request->summary__title;
