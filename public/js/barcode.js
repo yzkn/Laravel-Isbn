@@ -42,34 +42,84 @@ function draw() {
         }
     }
 }
-navigator.getUserMedia = (navigator.getUserMedia ||
-    navigator.webkitGetUserMedia ||
-    navigator.mozGetUserMedia ||
-    navigator.msGetUserMedia);
-if (navigator.getUserMedia) {
-    navigator.getUserMedia({
-            video: true,
-            audio: true
-        },
-        function (localMediaStream) {
-            video.src = window.URL.createObjectURL(localMediaStream);
-            video.play();
-            draw();
-            streaming = true;
-        },
-        function (err) {
-            console.log("The following error occured: " + err);
+// navigator.getUserMedia = (navigator.getUserMedia ||
+//     navigator.webkitGetUserMedia ||
+//     navigator.mozGetUserMedia ||
+//     navigator.msGetUserMedia);
+// if (navigator.getUserMedia) {
+//     navigator.getUserMedia({
+//             video: true,
+//             audio: true
+//         },
+//         function (localMediaStream) {
+//             video.srcObject = localMediaStream;
+//             video.play();
+//             draw();
+//             streaming = true;
+//         },
+//         function (err) {
+//             console.log("The following error occured: " + err);
+//         }
+//     );
+// } else {
+//     console.log("getUserMedia not supported");
+// }
+navigator.mediaDevices = navigator.mediaDevices || ((navigator.mozGetUserMedia || navigator.webkitGetUserMedia) ? {
+    getUserMedia: function (c) {
+        return new Promise(function (y, n) {
+            (navigator.mozGetUserMedia ||
+                navigator.webkitGetUserMedia).call(navigator, c, y, n);
+        });
+    }
+} : null);
+
+if (!navigator.mediaDevices) {
+    console.log("getUserMedia() not supported.");
+    return;
+}
+
+var constraints = {
+    audio: true,
+    video: {
+        facingMode: {
+            exact: "environment"
         }
-    );
-} else {
-    console.log("getUserMedia not supported");
-}
+    },
+};
 
-function Decode() {
-    if (!streaming) return;
-    JOB.DecodeStream(video);
-}
+navigator.mediaDevices.getUserMedia(constraints)
+    .then(function (localMediaStream) {
+        video.srcObject = localMediaStream;
+        video.play();
+        draw();
+        streaming = true;
+    })
+    .catch(function (err) {
+        console.log(err.name + ": " + err.message);
+    });
 
-function StopDecode() {
-    JOB.StopStreamDecode();
-}
+    function Decode() {
+        if (!streaming) return;
+        JOB.DecodeStream(video);
+    }
+    
+    // タイマーのID
+    var intervalID = -1;
+    function StopDecode() {
+        // タイマーが有効であれば止める
+        if (intervalID != -1) {
+            clearInterval(intervalID);
+            intervalID = -1;
+            return;
+        }
+    }
+    window.onload = function () {
+        intervalID = setInterval(function () {
+            document.getElementById('decoding-badge').style.display = 'inline';
+            Decode();
+            setTimeout(function () {
+                JOB.StopStreamDecode();
+                document.getElementById('decoding-badge').style.display = 'none';
+            }, 5000);
+        }, 10000);
+    }
