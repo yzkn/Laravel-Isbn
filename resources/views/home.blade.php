@@ -16,6 +16,10 @@
 
                     You are logged in!
                 </div>
+
+                <div class="card-body">
+                    <a class="dropdown-item" href="{{ url('/books') }}">Books</a>
+                </div>
             </div>
         </div>
     </div>
