@@ -57,8 +57,6 @@ $(function () {
                         $('#summary__series').val(data[0].summary.series);
                         $('#summary__volume').val(data[0].summary.volume);
                     }
-
-                    summary__cover
                 }
             });
         }

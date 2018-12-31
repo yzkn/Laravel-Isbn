@@ -1,4 +1,3 @@
-var result = document.getElementById("Result");
 JOB.Init();
 var localized = [];
 var streaming = false;
@@ -6,9 +5,17 @@ JOB.StreamCallback = function (result) {
     if (result.length > 0) {
         var tempArray = [];
         for (var i = 0; i < result.length; i++) {
-            tempArray.push(result[i].Format + " : " + result[i].Value);
+            // tempArray.push(result[i].Format + " : " + result[i].Value);
+            if ($('#summary__isbn')) {
+                if (result[i].Value.length == 13) {
+                    if (result[i].Value.indexOf('97') == 0) {
+                        $('#summary__isbn').val(result[i].Value);
+                        StopDecode();
+                        break;
+                    }
+                }
+            }
         }
-        Result.innerHTML = tempArray.join("<br />");
     }
 };
 JOB.SetLocalizationCallback(function (result) {
@@ -50,6 +57,7 @@ navigator.getUserMedia = (navigator.getUserMedia ||
     navigator.msGetUserMedia);
 if (navigator.getUserMedia) {
     navigator.getUserMedia({
+            audio: false,
             video: {
                 facingMode: {
                     exact: "environment"
@@ -65,6 +73,7 @@ if (navigator.getUserMedia) {
         function (err) {
             if (err.toString().indexOf('OverconstrainedError') != -1) {
                 navigator.getUserMedia({
+                        audio: false,
                         video: true
                     },
                     function (localMediaStream) {
