@@ -20,6 +20,7 @@
             @endforeach
         </ul>
     @endif
+    <span class="badge badge-pill badge-danger" id="decoding-badge" style="display:none;">Decoding</span>
     <form action="{{ url('books') }}" method="POST" enctype="multipart/form-data">
         <div class="card">
             <div class="card-body">
