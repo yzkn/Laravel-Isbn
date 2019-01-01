@@ -21,3 +21,8 @@
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ index.php [L]
 </IfModule>
+
+Header edit Set-Cookie ^(.*)$ $1;HttpOnly;Secure
+Header set X-Content-Type-Options nosniff
+Header set X-Frame-Options "deny"
+Header set X-XSS-Protection "1; mode=block"
