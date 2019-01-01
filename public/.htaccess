@@ -23,6 +23,9 @@
 </IfModule>
 
 Header edit Set-Cookie ^(.*)$ $1;HttpOnly;Secure
+Header set Cache-Control no-cache, no-store, must-revalidate
+Header set Pragma no-cache
+Header set Strict-Transport-Security "max-age=31536000; includeSubDomains"
 Header set X-Content-Type-Options nosniff
 Header set X-Frame-Options "deny"
 Header set X-XSS-Protection "1; mode=block"
