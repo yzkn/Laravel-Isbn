@@ -16,19 +16,6 @@ $(function () {
         }
     });
 
-    $(document).ready(function () {
-        console.log('ready');
-        isbn = '9784040696782';
-        const url = '/books/ndl/' + isbn;
-        console.log('url' + url);
-        $.getJSON(url, function (data) {
-            console.log('data' + data['records']);
-            $.each(data['records'], function (i, item) {
-                console.log('data' + item['recordData']['srw_dc_dc']['dc_title']);
-            });
-        });
-    });
-
     $('#callOpenbdApi').click(function (e) {
         const isbn = $('#summary__isbn').val().replace(/-/g, '').replace('/ /g', '');
         $('#summary__isbn').val(isbn);
@@ -39,17 +26,40 @@ $(function () {
                     // OpenBDでデータを取得できなかった時
                     const url = '/books/ndl/' + isbn;
                     $.getJSON(url, function (data) {
-                        if (data[0] == null) {
+                        if (data['records']['record'] == null) {
                             $('.modal').show();
                         } else {
-                            if (data[0].summary.cover != '') {
-                                $('#summary__cover').val(data[0].summary.cover);
+                            // if (data[0].summary.cover != '') {
+                            //     $('#summary__cover').val(data[0].summary.cover);
+                            // }
+                            $('#summary__title').val(data['records']['record']['recordData']['srw_dc_dc']['dc_title']);
+                            $('#summary__publisher').val(data['records']['record']['recordData']['srw_dc_dc']['dc_publisher']);
+                            $('#summary__author').val(data['records']['record']['recordData']['srw_dc_dc']['dc_creator']);
+                            $('#summary__pubdate').val(data['record'].summary.pubdate);
+                            if (true) {
+                                var title = data['records']['record']['recordData']['srw_dc_dc']['dc_title'];
+
+                                var pat1 = /(\s*[\[(<{＜≪《「『【〔［｛〈（〝“‘]*?[#＃♯第]*[0-9０-９]+[巻]*[\])>}＞≫》」』】〕］｝〉）〟”’]*\s*)/;
+                                var titlearr = title.split(pat1);
+                                var series = title;
+                                if (titlearr.length > 1) {
+                                    var lastpart;
+                                    if (titlearr[titlearr.length - 1] == '') {
+                                        lastpart = titlearr.slice(titlearr.length - 2, titlearr.length);
+                                    } else {
+                                        lastpart = titlearr.slice(titlearr.length - 1, titlearr.length);
+                                    }
+                                    series = (title + '###').replace((lastpart.join('') + '###'), '');
+                                }
+
+                                var pat2 = /\s*[\[(<{＜≪《「『【〔［｛〈（〝“‘#＃♯第巻\])>}＞≫》」』】〕］｝〉）〟”’]+\s*/g;
+                                var volume = (title.replace(series, '')).replace(pat2, '');
+
+                                $('#summary__series').val(series);
+                                $('#summary__volume').val(volume);
                             }
                         }
                     });
-                    //
-
-                    // $('.modal').show();
                 } else {
                     if (data[0].summary.cover != '') {
                         $('#summary__cover').val(data[0].summary.cover);
