@@ -16,6 +16,19 @@ $(function () {
         }
     });
 
+    $(document).ready(function () {
+        console.log('ready');
+        isbn = '9784040696782';
+        const url = '/books/ndl/' + isbn;
+        console.log('url' + url);
+        $.getJSON(url, function (data) {
+            console.log('data' + data['records']);
+            $.each(data['records'], function (i, item) {
+                console.log('data' + item['recordData']['srw_dc_dc']['dc_title']);
+            });
+        });
+    });
+
     $('#callOpenbdApi').click(function (e) {
         const isbn = $('#summary__isbn').val().replace(/-/g, '').replace('/ /g', '');
         $('#summary__isbn').val(isbn);
@@ -23,7 +36,20 @@ $(function () {
             const url = '/books/bd/' + isbn;
             $.getJSON(url, function (data) {
                 if (data[0] == null) {
-                    $('.modal').show();
+                    // OpenBDでデータを取得できなかった時
+                    const url = '/books/ndl/' + isbn;
+                    $.getJSON(url, function (data) {
+                        if (data[0] == null) {
+                            $('.modal').show();
+                        } else {
+                            if (data[0].summary.cover != '') {
+                                $('#summary__cover').val(data[0].summary.cover);
+                            }
+                        }
+                    });
+                    //
+
+                    // $('.modal').show();
                 } else {
                     if (data[0].summary.cover != '') {
                         $('#summary__cover').val(data[0].summary.cover);
@@ -62,3 +88,13 @@ $(function () {
         }
     });
 });
+
+function unescapeHTML(str) {
+    var div = document.createElement("div");
+    div.innerHTML = str.replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/ /g, "&nbsp;")
+        .replace(/\r/g, "&#13;")
+        .replace(/\n/g, "&#10;");
+    return div.textContent || div.innerText;
+}

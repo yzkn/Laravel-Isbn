@@ -147,4 +147,39 @@ class BookController extends Controller
         $json = mb_convert_encoding($json, 'UTF8', 'ASCII,JIS,UTF-8,EUC-JP,SJIS-WIN');
         return json_decode($json);
     }
+
+    public function ndl($isbn)
+    {
+        $url = 'http://iss.ndl.go.jp/api/sru?operation=searchRetrieve&query=isbn=' . $isbn;
+        $xml = file_get_contents($url);
+        $xml = mb_convert_encoding($xml, 'UTF8', 'ASCII,JIS,UTF-8,EUC-JP,SJIS-WIN');
+        $xml = html_entity_decode($xml, ENT_QUOTES);
+
+        $json = xml2json($xml);
+
+        return $json;
+    }
+}
+
+function xml2json($xml)
+{
+    // 名前空間が記述されているxmlファイルをそのまま読み込むと、当該タグのデータが欠落する
+    $xml = preg_replace("/<([^>]+?):([^>]+?)>/", "<$1_$2>", $xml);
+    $xml = preg_replace("/_\/\//", "://", $xml);
+    $objXml = simplexml_load_string($xml, null, LIBXML_NOCDATA);
+    xml2jsonsub($objXml);
+    $json = json_encode($objXml, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+    return preg_replace('/\\\\\//', '/', $json);
+}
+
+function xml2jsonsub($node)
+{
+    if ($node->count() > 0) {
+        foreach ($node->children() as $child) {
+            foreach ($child->attributes() as $key => $val) {
+                $node->addChild($child->getName() . "@" . $key, $val);
+            }
+            xml2jsonsub($child);
+        }
+    }
 }
