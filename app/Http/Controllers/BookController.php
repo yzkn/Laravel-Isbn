@@ -20,9 +20,9 @@ class BookController extends Controller
      */
     public function index()
     {
-        // $books = Book::all();
-        $books = Book::latest()->get();
-        return view('book.index', ['books' => $books]);
+        $books = Book::orderBy('summary__isbn', 'asc')->get();
+        $isOnline = isOnline('');
+        return view('book.index', ['books' => $books, 'isOnline' => $isOnline]);
     }
 
     /**
@@ -49,7 +49,7 @@ class BookController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(\Illuminate\Http\Request $request)
     {
         $user = Auth::user();
 
@@ -111,7 +111,7 @@ class BookController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(\Illuminate\Http\Request $request, $id)
     {
         $user = Auth::user();
 
@@ -143,22 +143,45 @@ class BookController extends Controller
     public function bd($isbn)
     {
         $url = 'https://api.openbd.jp/v1/get?isbn=' . $isbn;
-        $json = file_get_contents($url);
-        $json = mb_convert_encoding($json, 'UTF8', 'ASCII,JIS,UTF-8,EUC-JP,SJIS-WIN');
-        return json_decode($json);
+        if (isOnline($url)) {
+            $json = file_get_contents($url);
+            if ('' !== $json) {
+                $json = mb_convert_encoding($json, 'UTF8', 'ASCII,JIS,UTF-8,EUC-JP,SJIS-WIN');
+                return json_decode($json);
+            }
+        }
+        return '';
     }
 
     public function ndl($isbn)
     {
         $url = 'http://iss.ndl.go.jp/api/sru?operation=searchRetrieve&query=isbn=' . $isbn;
-        $xml = file_get_contents($url);
-        $xml = mb_convert_encoding($xml, 'UTF8', 'ASCII,JIS,UTF-8,EUC-JP,SJIS-WIN');
-        $xml = html_entity_decode($xml, ENT_QUOTES);
-
-        $json = xml2json($xml);
-
-        return $json;
+        if (isOnline($url)) {
+            $xml = file_get_contents($url);
+            if ('' !== $xml) {
+                $xml = mb_convert_encoding($xml, 'UTF8', 'ASCII,JIS,UTF-8,EUC-JP,SJIS-WIN');
+                $xml = html_entity_decode($xml, ENT_QUOTES);
+                $json = xml2json($xml);
+                return $json;
+            }
+        }
+        return '';
     }
+}
+
+function isOnline($uri)
+{
+    if ((null === $uri) || ('' === $uri) || (strpos($uri, 'http') === 0)) {
+        $uri = 'https://openbd.jp/';
+    }
+
+    $isOnline = false;
+    try {
+        $isOnline = fsockopen(parse_url($uri, PHP_URL_HOST), 80, $errno, $errstr, 10);
+    } catch (\ErrorException $eex) {
+    } catch (\Exception $ex) {
+    }
+    return $isOnline;
 }
 
 function xml2json($xml)
