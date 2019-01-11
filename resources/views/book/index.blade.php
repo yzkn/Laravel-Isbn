@@ -11,17 +11,16 @@
             <thead>
                 <tr>
                     <th>{{ __('Cover') }}</th>
-                    <th>{{ __('ISBN') }}</th>
-                    <th>{{ __('Title') }}</th>
-                    <th>{{ __('Author') }}</th>
-                    <th>{{ __('Publisher') }}</th>
-                    <th>{{ __('Pubdate') }}</th>
-                    <th>{{ __('Series') }}</th>
-                    <th>{{ __('Volume') }}</th>
-                    <th>{{ __('CreatedAt') }}</th>
+                    <th>{{ __('Title') }} <br /> {{ __('Pubdate') }}</th>
+                    <th>{{ __('Publisher') }} <br /> {{ __('Author') }}</th>
                 </tr>
             </thead>
             <tbody>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td><a href="{{ url('books/create') }}" class="btn btn-info">{{ __('Create') }}</a></td>
+                </tr>
                 @foreach ($books as $book)
                     <tr>
                         <td>
@@ -31,27 +30,10 @@
                                 </a>
                             @endif
                         </td>
-                        <td><a href="{{ url('books/'.$book->id) }}">{{ $book->summary__isbn }}</a></td>
-                        <td>{{ $book->summary__title }}</td>
-                        <td>{{ $book->summary__author }}</td>
-                        <td>{{ $book->summary__publisher }}</td>
-                        <td>{{ $book->summary__pubdate }}</td>
-                        <td>{{ $book->summary__series }}</td>
-                        <td>{{ $book->summary__volume }}</td>
-                        <td>{{ $book->created_at }}</td>
+                        <td><a href="{{ url('books/'.$book->id) }}">{{ $book->summary__title }}</a> <br /> {{ $book->summary__pubdate }}</td>
+                        <td>{{ $book->summary__publisher }} <br /> {{ $book->summary__author }}</td>
                     </tr>
                 @endforeach
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td><a href="{{ url('books/create') }}" class="btn btn-info">{{ __('Create') }}</a></td>
-                </tr>
             </tbody>
         </table>
     </div>
