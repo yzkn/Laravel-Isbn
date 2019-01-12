@@ -36,7 +36,7 @@ $(function () {
 });
 
 function getBdJson(isbn) {
-    const url = '/books/bd/' + isbn;
+    const url = '../books/bd/' + isbn;
     console.log('[bd] url: ' + url);
 
     $.getJSON(url, function (data) {
@@ -86,7 +86,7 @@ function getBdJson(isbn) {
 }
 
 function getNdlJson(isbn) {
-    const url = '/books/ndl/' + isbn;
+    const url = '../books/ndl/' + isbn;
     console.log('[ndl] url: ' + url);
     $.getJSON(url, function (data) {
         console.log('[ndl] url: ' + url + ' , data: ' + data);
