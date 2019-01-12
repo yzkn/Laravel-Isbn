@@ -42,7 +42,7 @@ function getBdJson(isbn) {
     $.getJSON(url, function (data) {
         console.log('[bd] url: ' + url + ' , data: ' + data.length);
         console.log('[bd] url: ' + url + ' , data: ' + data);
-        if (data.length > 0) {
+        if (data.length > 0 && data[0] != null) {
             if (data[0].summary.cover != '') {
                 $('#summary__cover').val(data[0].summary.cover);
             }
