@@ -59,6 +59,7 @@
                                     @if (Route::has('login'))
                                         @auth
                                             <a class="dropdown-item" href="{{ url('/books') }}">Books</a>
+                                            <a class="dropdown-item" href="{{ url('/series') }}">Series</a>
                                         @else
                                             <a class="dropdown-item" href="{{ route('login') }}">Login</a>
 
