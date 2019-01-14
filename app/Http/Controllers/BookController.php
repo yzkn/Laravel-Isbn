@@ -167,6 +167,44 @@ class BookController extends Controller
         }
         return '';
     }
+
+    public function index_series()
+    {
+        $books = Book::orderBy('summary__isbn', 'asc')->get();
+
+        $books_groupby_series = [];
+        foreach ($books as $key => $book) {
+            $summary__series = $book->summary__series != '' ? $book->summary__series : $book->summary__title;
+            $summary__volume = $book->summary__volume != '' ? mb_convert_kana($book->summary__volume, 'as') : 1;
+
+            if (!isset($books_groupby_series[$summary__series][$summary__volume])) {
+                $books_groupby_series[$summary__series][$summary__volume] = $book;
+            } else {
+                $books_groupby_series[$summary__series][mt_rand(100, 999) + intval($summary__volume)] = $book;
+            }
+        }
+
+        // Sort
+        $max_cols = 0;
+        ksort($books_groupby_series);
+        foreach ($books_groupby_series as $key => $books_in_series) {
+            ksort($books_groupby_series[$key]);
+
+            if (count($books_in_series) > $max_cols) {
+                $max_cols = count($books_in_series);
+            }
+        }
+
+        $isOnline = isOnline('');
+        return view(
+            'book.series',
+            [
+                'books_groupby_series' => $books_groupby_series,
+                'isOnline' => $isOnline,
+                'colspan' => $max_cols,
+            ]
+        );
+    }
 }
 
 function isOnline($uri)

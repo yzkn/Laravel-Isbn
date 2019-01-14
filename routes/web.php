@@ -19,6 +19,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('books', 'BookController');
     Route::get('books/bd/{isbn}', 'BookController@bd')->where('isbn', '[-0-9]{13,}');
     Route::get('books/ndl/{isbn}', 'BookController@ndl')->where('isbn', '[-0-9]{13,}');
+    Route::get('series', 'BookController@index_series');
     Route::get('csv/import', 'CsvController@import');
     Route::post('csv/import', 'CsvController@store');
 });
