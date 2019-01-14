@@ -19,6 +19,7 @@
 
                 <div class="card-body">
                     <a class="dropdown-item" href="{{ url('/books') }}">Books</a>
+                    <a class="dropdown-item" href="{{ url('/series') }}">Series</a>
                 </div>
             </div>
         </div>
