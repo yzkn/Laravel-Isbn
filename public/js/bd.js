@@ -93,14 +93,15 @@ function getNdlJson(isbn) {
         if (data['records']['record'] == null) {
             $('.modal').show();
         } else {
-            // if (data[0].summary.cover != '') {
-            //     $('#summary__cover').val(data[0].summary.cover);
-            // }
-            $('#summary__title').val(data['records']['record']['recordData']['srw_dc_dc']['dc_title']);
-            $('#summary__publisher').val(data['records']['record']['recordData']['srw_dc_dc']['dc_publisher']);
-            $('#summary__author').val(data['records']['record']['recordData']['srw_dc_dc']['dc_creator']);
-            if (true) {
-                var title = data['records']['record']['recordData']['srw_dc_dc']['dc_title'];
+            if (data['records']['record'][0] == null) {
+                $('.modal').show();
+            } else {
+                var data0 = data['records']['record'][0];
+                $('#summary__title').val(data0['recordData']['srw_dc_dc']['dc_title']);
+                $('#summary__publisher').val(data0['recordData']['srw_dc_dc']['dc_publisher']);
+                $('#summary__author').val(data0['recordData']['srw_dc_dc']['dc_creator']);
+
+                var title = data0['recordData']['srw_dc_dc']['dc_title'];
 
                 var pat1 = /(\s*[\[(<{＜≪《「『【〔［｛〈（〝“‘]*?[#＃♯第]*[0-9０-９]+[巻]*[\])>}＞≫》」』】〕］｝〉）〟”’]*\s*)/;
                 var titlearr = title.split(pat1);
