@@ -137,7 +137,7 @@ function StopDecode() {
         return;
     }
 }
-window.onload = function () {
+document.addEventListener("DOMContentLoaded", function () {
     intervalID = setInterval(function () {
         document.getElementById('decoding-badge').style.display = 'inline';
         Decode();
@@ -146,4 +146,4 @@ window.onload = function () {
             document.getElementById('decoding-badge').style.display = 'none';
         }, 5000);
     }, 10000);
-}
+});
