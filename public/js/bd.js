@@ -96,7 +96,10 @@ function getNdlJson(isbn) {
             if (data['records']['record'][0] == null) {
                 $('.modal').show();
             } else {
-                var data0 = data['records']['record'][0];
+                var data0 = data['records']['record'];
+                if (data['records']['record'][0]) {
+                    data0 = data['records']['record'][0];
+                }
                 $('#summary__title').val(data0['recordData']['srw_dc_dc']['dc_title']);
                 $('#summary__publisher').val(data0['recordData']['srw_dc_dc']['dc_publisher']);
                 $('#summary__author').val(data0['recordData']['srw_dc_dc']['dc_creator']);
