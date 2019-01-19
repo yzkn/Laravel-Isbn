@@ -13,6 +13,8 @@
     <script src="{{ asset('js/app.js') }}" defer></script>
     <script src="{{ asset('js/jquery-3.3.1.min.js') }}"></script>
     <script src="{{ asset('js/bd.js') }}" defer></script>
+    <script src="{{ asset('js/list.js') }}"></script>
+    <script src="{{ asset('js/sort.js') }}"></script>
 
     <!-- Fonts -->
     <link href="{{ asset('css/nunito.css') }}" rel="stylesheet" type="text/css">
@@ -20,6 +22,7 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/book.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/sort.css') }}" rel="stylesheet">
 </head>
 <body>
     <div id="app">
