@@ -33,3 +33,11 @@ document.addEventListener("DOMContentLoaded", function (event) {
         }
     }
 });
+
+function hide(id) {
+    var ele = document.getElementById(id);
+    if (ele) {
+        console.log(ele);
+        ele.style.display = "none";
+    }
+}

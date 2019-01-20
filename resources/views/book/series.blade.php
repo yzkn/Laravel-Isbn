@@ -11,11 +11,12 @@
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th colspan="3">
+                        <th colspan="4">
                             <input type="text" class="form-control search" placeholder="Search" />
                         </th>
                     </tr>
                     <tr>
+                        <th></th>
                         <th class="sort" data-sort="series">{{ __('Series') }}</th>
                         <th>{{ __('Publisher') }} <br /> {{ __('Author') }}</th>
                         <th colspan="{{ $colspan }}">{{ __('Volume') }} <br /> {{ __('Pubdate') }}</th>
@@ -26,28 +27,33 @@
                         @php
                             $i = 0;
                         @endphp
-                        <tr>
-                            @foreach ($books_in_series as $vol => $book)
-                                @if ($i===0)
-                                    <td class="series">{{ $ser }}</td>
-                                    <td>{{ $book->summary__publisher }} <br /> {{ $book->summary__author }}</td>
-                                @endif
+                        @foreach ($books_in_series as $vol => $book)
+                            @if ($i===0)
+                                <tr id="{{ $book->summary__isbn }}">
+                            @endif
+                            @if ($i===0)
                                 <td>
-                                    <a href="{{ url('books/'.$book->id) }}">
-                                        <b>
-                                            {{ $vol }}
-                                        </b>
-                                        @if ($isOnline && !empty($book->summary__cover) && exif_imagetype($book->summary__cover))
-                                            <img src="{{ $book->summary__cover }}" class="img-thumbnail summary__cover" />
-                                        @endif
-                                        <br />
-                                        {{ $book->summary__pubdate }}
-                                    </a>
+                                    <input class="check-for-hide-row" type="checkbox" title="Hide" onclick="hide('{{ $book->summary__isbn }}')">
                                 </td>
-                                @php
-                                    $i++;
-                                @endphp
-                            @endforeach
+                                <td class="series">{{ $ser }}</td>
+                                <td>{{ $book->summary__publisher }} <br /> {{ $book->summary__author }}</td>
+                            @endif
+                            <td>
+                                <a href="{{ url('books/'.$book->id) }}">
+                                    <b>
+                                        {{ $vol }}
+                                    </b>
+                                    @if ($isOnline && !empty($book->summary__cover) && exif_imagetype($book->summary__cover))
+                                        <img src="{{ $book->summary__cover }}" class="img-thumbnail summary__cover" />
+                                    @endif
+                                    <br />
+                                    {{ $book->summary__pubdate }}
+                                </a>
+                            </td>
+                            @php
+                                $i++;
+                            @endphp
+                        @endforeach
                         </tr>
                     @endforeach
                 </tbody>
