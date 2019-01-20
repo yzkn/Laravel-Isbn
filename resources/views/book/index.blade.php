@@ -8,22 +8,24 @@
     <h1>{{ $title }}</h1>
     <div class="table-responsive">
         <div id="books">
-            <input class="search" placeholder="Search" />
             <table class="table table-striped">
                 <thead>
+                    <tr>
+                        <th colspan="3">
+                            <input type="text" class="form-control search" placeholder="Search" />
+                        </th>
+                        <th>
+                        </th>
+                        <th>
+                            <a href="{{ url('books/create') }}" class="btn btn-info">{{ __('Create') }}</a>
+                        </th>
+                    </tr>
                     <tr>
                         <th>{{ __('Cover') }}</th>
                         <th class="sort" data-sort="title">{{ __('Title') }}</th>
                         <th class="sort" data-sort="pubdate">{{ __('Pubdate') }}</th>
                         <th class="sort" data-sort="author">{{ __('Author') }}</th>
                         <th class="sort" data-sort="publisher">{{ __('Publisher') }}</th>
-                    </tr>
-                    <tr>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th><a href="{{ url('books/create') }}" class="btn btn-info">{{ __('Create') }}</a></th>
                     </tr>
                 </thead>
                 <tbody class="list">
