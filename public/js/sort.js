@@ -1,19 +1,19 @@
-document.addEventListener("DOMContentLoaded", function (event) {
+document.addEventListener("DOMContentLoaded", function(event) {
     if (document.getElementById("books")) {
         var options = {
             valueNames: ["title", "pubdate", "author", "publisher"]
         };
         var bookList = new Listjs("books", options);
-        if (bookList) {
-            bookList.sort("title", {
-                order: "asc",
-                alphabet: "AＡaａBＢbｂCＣcｃDＤdｄEＥeｅ" +
-                    "FＦfｆGＧgｇHＨhｈIＩiｉJＪjｊ" +
-                    "KＫkｋLＬlｌMＭmｍNＮnｎOＯoｏ" +
-                    "PＰpｐQＱqｑRＲrｒSＳsｓTＴtｔ" +
-                    "UＵuｕVＶvｖWwＷｗXＸxｘYＹyｙZＺzｚ"
-            });
-        }
+        // if (bookList) {
+        //     bookList.sort("title", {
+        //         order: "asc",
+        //         alphabet: "AＡaａBＢbｂCＣcｃDＤdｄEＥeｅ" +
+        //             "FＦfｆGＧgｇHＨhｈIＩiｉJＪjｊ" +
+        //             "KＫkｋLＬlｌMＭmｍNＮnｎOＯoｏ" +
+        //             "PＰpｐQＱqｑRＲrｒSＳsｓTＴtｔ" +
+        //             "UＵuｕVＶvｖWwＷｗXＸxｘYＹyｙZＺzｚ"
+        //     });
+        // }
     }
 
     if (document.getElementById("series")) {
@@ -21,16 +21,16 @@ document.addEventListener("DOMContentLoaded", function (event) {
             valueNames: ["series"]
         };
         var seriesList = new Listjs("series", options);
-        if (seriesList) {
-            seriesList.sort("series", {
-                order: "asc",
-                alphabet: "AＡaａBＢbｂCＣcｃDＤdｄEＥeｅ" +
-                    "FＦfｆGＧgｇHＨhｈIＩiｉJＪjｊ" +
-                    "KＫkｋLＬlｌMＭmｍNＮnｎOＯoｏ" +
-                    "PＰpｐQＱqｑRＲrｒSＳsｓTＴtｔ" +
-                    "UＵuｕVＶvｖWwＷｗXＸxｘYＹyｙZＺzｚ"
-            });
-        }
+        // if (seriesList) {
+        //     seriesList.sort("series", {
+        //         order: "asc",
+        //         alphabet: "AＡaａBＢbｂCＣcｃDＤdｄEＥeｅ" +
+        //             "FＦfｆGＧgｇHＨhｈIＩiｉJＪjｊ" +
+        //             "KＫkｋLＬlｌMＭmｍNＮnｎOＯoｏ" +
+        //             "PＰpｐQＱqｑRＲrｒSＳsｓTＴtｔ" +
+        //             "UＵuｕVＶvｖWwＷｗXＸxｘYＹyｙZＺzｚ"
+        //     });
+        // }
     }
 });
 
