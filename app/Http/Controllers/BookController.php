@@ -150,9 +150,7 @@ class BookController extends Controller
 
         $book = Book::find($id);
         if (isset($book)) {
-            if(($user->role > 0 && $user->role <= \Config::get('role.admin'))){
-                $book->delete();
-            }
+            $book->delete();
         }
         return redirect('/books');
     }
