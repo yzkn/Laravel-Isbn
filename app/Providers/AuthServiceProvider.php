@@ -26,7 +26,7 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
 
         Gate::define('allow_system', function ($user) {
-            return ($user->role == \Config::get('role.system'));
+            return ($user->role === \Config::get('role.system'));
         });
 
         Gate::define('allow_admin', function ($user) {

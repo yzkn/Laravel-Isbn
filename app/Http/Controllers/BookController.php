@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Book;
+use App\User;
 use Auth;
 use Request;
 
@@ -40,7 +41,13 @@ class BookController extends Controller
             $isbn = '';
         }
 
-        return view('book.create', ['isbn' => $isbn]);
+        $r = User::orderBy('name', 'asc')->get();
+        $readers = array();
+        foreach ($r as $v) {
+            $readers[$v->id] = $v->name;
+        }
+
+        return view('book.create', ['isbn' => $isbn, 'readers' => $readers]);
     }
 
     /**
@@ -97,9 +104,13 @@ class BookController extends Controller
 
         $book = Book::find($id);
         if (isset($book)) {
-            if ($user->id === $book->userid) {
-                return view('book.edit', ['book' => $book]);
+            $r = User::orderBy('name', 'asc')->get();
+            $readers = array();
+            foreach ($r as $v) {
+                $readers[$v->id] = $v->name;
             }
+
+            return view('book.edit', ['book' => $book, 'user' => $user, 'readers' => $readers, 'isowner' => (($user->id === $book->userid)?true:false)]);
         }
         return redirect('/books');
     }
@@ -117,8 +128,10 @@ class BookController extends Controller
 
         $book = Book::find($id);
         if (isset($book)) {
-            $book->fill($request->all());
-            $book->userid = $user->id;
+            if($user->id === $book->userid || ($user->role > 0 && $user->role <= \Config::get('role.admin'))){
+                $book->fill($request->all());
+            }
+            $book->reader_id = $user->id;
             $book->save();
             return redirect('books/' . $book->id);
         }
@@ -133,9 +146,13 @@ class BookController extends Controller
      */
     public function destroy($id)
     {
+        $user = Auth::user();
+
         $book = Book::find($id);
         if (isset($book)) {
-            $book->delete();
+            if(($user->role > 0 && $user->role <= \Config::get('role.admin'))){
+                $book->delete();
+            }
         }
         return redirect('/books');
     }

@@ -26,5 +26,11 @@ class Book extends Model
         'summary__series',
         'summary__volume',
         'userid',
+        'reader_id',
     ];
+
+    public function reader()
+    {
+        return $this->belongsTo('App\User', 'reader_id');
+    }
 }

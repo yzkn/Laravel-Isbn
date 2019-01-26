@@ -24,21 +24,35 @@
             <div class="card-body">
                 <dl class="row">
                     <dt class="col-md-2">{{ __('ISBN') }}</dt>
-                    <dd class="col-md-10"><input type="text" class="form-control" name="summary__isbn" id="summary__isbn" value="{{ $book->summary__isbn }}"></dd>
+                    <dd class="col-md-10"><input type="text" class="form-control" name="summary__isbn" id="summary__isbn" {{ $isowner ? '' : 'disabled'}} value="{{ $book->summary__isbn }}"></dd>
                     <dt class="col-md-2">{{ __('Cover') }}</dt>
-                    <dd class="col-md-10"><input type="text" class="form-control" name="summary__cover" id="summary__cover" value="{{ $book->summary__cover }}"></dd>
+                    <dd class="col-md-10"><input type="text" class="form-control" name="summary__cover" id="summary__cover" {{ $isowner ? '' : 'disabled'}} value="{{ $book->summary__cover }}"></dd>
                     <dt class="col-md-2">{{ __('Title') }}</dt>
-                    <dd class="col-md-10"><input type="text" class="form-control" name="summary__title" id="summary__title" value="{{ $book->summary__title }}"></dd>
+                    <dd class="col-md-10"><input type="text" class="form-control" name="summary__title" id="summary__title" {{ $isowner ? '' : 'disabled'}} value="{{ $book->summary__title }}"></dd>
                     <dt class="col-md-2">{{ __('Author') }}</dt>
-                    <dd class="col-md-10"><input type="text" class="form-control" name="summary__author" id="summary__author" value="{{ $book->summary__author }}"></dd>
+                    <dd class="col-md-10"><input type="text" class="form-control" name="summary__author" id="summary__author" {{ $isowner ? '' : 'disabled'}} value="{{ $book->summary__author }}"></dd>
                     <dt class="col-md-2">{{ __('Publisher') }}</dt>
-                    <dd class="col-md-10"><input type="text" class="form-control" name="summary__publisher" id="summary__publisher" value="{{ $book->summary__publisher }}"></dd>
+                    <dd class="col-md-10"><input type="text" class="form-control" name="summary__publisher" id="summary__publisher" {{ $isowner ? '' : 'disabled'}} value="{{ $book->summary__publisher }}"></dd>
                     <dt class="col-md-2">{{ __('Pubdate') }}</dt>
-                    <dd class="col-md-10"><input type="text" class="form-control" name="summary__pubdate" id="summary__pubdate" value="{{ $book->summary__pubdate }}"></dd>
+                    <dd class="col-md-10"><input type="text" class="form-control" name="summary__pubdate" id="summary__pubdate" {{ $isowner ? '' : 'disabled'}} value="{{ $book->summary__pubdate }}"></dd>
                     <dt class="col-md-2">{{ __('Series') }}</dt>
-                    <dd class="col-md-10"><input type="text" class="form-control" name="summary__series" id="summary__series" value="{{ $book->summary__series }}"></dd>
+                    <dd class="col-md-10"><input type="text" class="form-control" name="summary__series" id="summary__series" {{ $isowner ? '' : 'disabled'}} value="{{ $book->summary__series }}"></dd>
                     <dt class="col-md-2">{{ __('Volume') }}</dt>
-                    <dd class="col-md-10"><input type="text" class="form-control" name="summary__volume" id="summary__volume" value="{{ $book->summary__volume }}"></dd>
+                    <dd class="col-md-10"><input type="text" class="form-control" name="summary__volume" id="summary__volume" {{ $isowner ? '' : 'disabled'}} value="{{ $book->summary__volume }}"></dd>
+                    <dt class="col-md-2">{{ __('Reader') }}</dt>
+                    <dd class="col-md-10">
+                        @can('allow_system')
+                            <select class="form-control" name="reader_id" value="reader_id">
+                                <option value=""></option>
+                                @foreach($readers as $k => $v)
+                                    <option value="{{ $k }}"{{ (($book->reader->id == $k)?' selected':'') }}>{{$v}}</option>
+                                @endforeach
+                            </select>
+                        @else
+                        <input type="text" class="form-control" disabled value="{{ $user->name }}">
+                        <input type="hidden" class="form-control" name="reader_id" id="reader_id" disabled value="{{ $user->id }}">
+                        @endcan
+                    </dd>
                 </dl>
             </div>
             <div class="card-footer text-muted">

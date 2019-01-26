@@ -17,7 +17,9 @@
                         <th>
                         </th>
                         <th>
-                            <a href="{{ url('books/create') }}" class="btn btn-info">{{ __('Create') }}</a>
+                            @can('allow_admin')
+                                <a href="{{ url('books/create') }}" class="btn btn-info">{{ __('Create') }}</a>
+                            @endcan
                         </th>
                     </tr>
                     <tr>
@@ -26,6 +28,7 @@
                         <th class="sort" data-sort="pubdate">{{ __('Pubdate') }}</th>
                         <th class="sort" data-sort="author">{{ __('Author') }}</th>
                         <th class="sort" data-sort="publisher">{{ __('Publisher') }}</th>
+                        <th>{{ __('Reader') }}</th>
                     </tr>
                 </thead>
                 <tbody class="list">
@@ -42,6 +45,7 @@
                             <td class="pubdate">{{ $book->summary__pubdate }}</td>
                             <td class="author">{{ $book->summary__author }}</td>
                             <td class="publisher">{{ $book->summary__publisher }}</td>
+                            <td>{{ $book->reader->name }}</td>
                         </tr>
                     @endforeach
                 </tbody>

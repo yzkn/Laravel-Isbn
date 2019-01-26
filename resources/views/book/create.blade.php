@@ -65,6 +65,15 @@
                                     <dd class="col-md-10"><input type="text" class="form-control" name="summary__series" id="summary__series" value=""></dd>
                                     <dt class="col-md-2">{{ __('Volume') }}</dt>
                                     <dd class="col-md-10"><input type="text" class="form-control" name="summary__volume" id="summary__volume" value=""></dd>
+                                    <dt class="col-md-2">{{ __('Reader') }}</dt>
+                                    <dd class="col-md-10">
+                                        <select class="form-control" name="reader_id" value="reader_id">
+                                            <option value="" selected></option>
+                                            @foreach($readers as $k => $v)
+                                                <option value="{{ $k }}">{{$v}}</option>
+                                            @endforeach
+                                        </select>
+                                    </dd>
                                 </dl>
                             </div>
                             <div class="card-footer text-muted">

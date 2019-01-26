@@ -36,6 +36,8 @@
                 <dd class="col-md-10">{{ e($book->summary__series) }}</dd>
                 <dt class="col-md-2">{{ __('Volume') }}</dt>
                 <dd class="col-md-10">{{ e($book->summary__volume) }}</dd>
+                <dt class="col-md-2">{{ __('Reader') }}</dt>
+                <dd class="col-md-10">{{ e($book->reader->name) }}</dd>
             </dl>
             <dl class="row">
                 <dt class="col-md-2">{{ __('Created') }}:</dt>
@@ -54,7 +56,9 @@
         </div>
         <div class="card-footer text-muted">
             <div class="edit">
-                <a href="{{ url('books/create') }}" class="btn btn-info">{{ __('Create') }}</a>
+                @can('allow_admin')
+                    <a href="{{ url('books/create') }}" class="btn btn-info">{{ __('Create') }}</a>
+                @endcan
                 <a href="{{ url('books/'.$book->id.'/edit') }}" class="btn btn-primary">
                     {{ __('Edit') }}
                 </a>
