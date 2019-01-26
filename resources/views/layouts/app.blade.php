@@ -63,6 +63,9 @@
                                         @auth
                                             <a class="dropdown-item" href="{{ url('/books') }}">Books</a>
                                             <a class="dropdown-item" href="{{ url('/series') }}">Series</a>
+                                            @can('allow_system')
+                                                <a class="dropdown-item" href="{{ url('/csv/import') }}">CSV Import</a>
+                                            @endcan
                                         @else
                                             <a class="dropdown-item" href="{{ route('login') }}">Login</a>
 
