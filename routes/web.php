@@ -25,8 +25,10 @@ Route::group(['middleware' => ['auth', 'can:allow_general']], function () {
 });
 
 Route::group(['middleware' => ['auth', 'can:allow_system']], function () {
+    Route::get('csv', 'CsvController@index');
     Route::get('csv/import', 'CsvController@import');
     Route::post('csv/import', 'CsvController@store');
+    Route::get('csv/export', 'CsvController@write');
 });
 
 Route::group(['middleware' => ['auth', 'can:allow_admin']], function () {

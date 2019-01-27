@@ -20,11 +20,30 @@ class CsvController extends Controller
     protected $extension_csv = 'csv';
     protected $filename_export = 'out.csv';
     protected $required_header = array('isbn', 'cover', 'title', 'author', 'publisher', 'pubdate', 'series', 'volume');
+    protected $export_header = array(
+        'summary__isbn',
+        // 'onix__RecordReference',
+        // 'onix__ProductIdentifier__IDValue',
+        'summary__cover',
+        'summary__title',
+        // 'onix__DescriptiveDetail__TitleDetail__TitleText',
+        'summary__author',
+        'summary__publisher',
+        'summary__pubdate',
+        'summary__series',
+        'summary__volume'//,
+        // 'userid'
+    );
     protected $locale_jajp = 'ja_JP.UTF-8';
     protected $mimetype_csv = 'text/csv';
     protected $mimetype_text = 'text/plain';
     protected $name_file = 'file';
     protected $view_csv_import = 'csv.import';
+
+    public function index()
+    {
+        return view('csv.index');
+    }
 
     public function import()
     {
@@ -148,5 +167,20 @@ class CsvController extends Controller
         }
 
         return redirect('/book');
+    }
+
+    public function write()
+    {
+        $books = Book::get($this->export_header)->toArray();
+        array_unshift($books, $this->required_header);
+        $stream = fopen('php://output', 'w');
+        foreach ($books as $book) {
+            fputcsv($stream, $book);
+        }
+        $headers = array(
+            'Content-Type' => $this->mimetype_csv,
+            'Content-Disposition' => 'attachment; filename="'.$this->filename_export.'"',
+        );
+        return \Response::make('', 200, $headers);
     }
 }

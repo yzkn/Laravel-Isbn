@@ -18,10 +18,10 @@
                 </div>
 
                 <div class="card-body">
-                    <a class="dropdown-item" href="{{ url('/books') }}">Books</a>
-                    <a class="dropdown-item" href="{{ url('/series') }}">Series</a>
+                    <a class="btn btn-primary" href="{{ url('/books') }}">Books</a>
+                    <a class="btn btn-secondary" href="{{ url('/series') }}">Series</a>
                     @can('allow_system')
-                        <a class="dropdown-item" href="{{ url('/csv/import') }}">CSV Import</a>
+                        <a class="btn btn-warning" href="{{ url('/csv') }}">CSV Import/Export</a>
                     @endcan
                 </div>
             </div>
