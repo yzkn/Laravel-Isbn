@@ -24,20 +24,20 @@
                 </dd>
                 <!--
                 <dt class="col-md-2">{{ __('Title') }}</dt>
-                <dd class="col-md-10">{{ e($book->summary__title) }}</dd>
+                <dd class="col-md-10">{{ $book->summary__title }}</dd>
                 -->
                 <dt class="col-md-2">{{ __('Author') }}</dt>
-                <dd class="col-md-10">{{ e($book->summary__author) }}</dd>
+                <dd class="col-md-10">{{ $book->summary__author }}</dd>
                 <dt class="col-md-2">{{ __('Publisher') }}</dt>
-                <dd class="col-md-10">{{ e($book->summary__publisher) }}</dd>
+                <dd class="col-md-10">{{ $book->summary__publisher }}</dd>
                 <dt class="col-md-2">{{ __('Pubdate') }}</dt>
-                <dd class="col-md-10">{{ e($book->summary__pubdate) }}</dd>
+                <dd class="col-md-10">{{ $book->summary__pubdate }}</dd>
                 <dt class="col-md-2">{{ __('Series') }}</dt>
-                <dd class="col-md-10">{{ e($book->summary__series) }}</dd>
+                <dd class="col-md-10">{{ $book->summary__series }}</dd>
                 <dt class="col-md-2">{{ __('Volume') }}</dt>
-                <dd class="col-md-10">{{ e($book->summary__volume) }}</dd>
+                <dd class="col-md-10">{{ $book->summary__volume }}</dd>
                 <dt class="col-md-2">{{ __('Reader') }}</dt>
-                <dd class="col-md-10">{{ e($book->reader->name) }}</dd>
+                <dd class="col-md-10">{{ $book->reader->name }}</dd>
             </dl>
             <dl class="row">
                 <dt class="col-md-2">{{ __('Created') }}:</dt>
