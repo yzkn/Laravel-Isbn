@@ -22,6 +22,7 @@ Route::group(['middleware' => ['auth', 'can:allow_general']], function () {
     Route::get('books/bd/{isbn}', 'BookController@bd')->where('isbn', '[-0-9]{13,}');
     Route::get('books/ndl/{isbn}', 'BookController@ndl')->where('isbn', '[-0-9]{13,}');
     Route::get('series', 'BookController@index_series');
+    Route::get('series/search', 'BookController@search_series');
 });
 
 Route::group(['middleware' => ['auth', 'can:allow_system']], function () {

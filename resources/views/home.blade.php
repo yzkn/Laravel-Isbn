@@ -17,13 +17,37 @@
                     You are logged in!
                 </div>
 
+                <div class="card-header mt-4">Books</div>
+
                 <div class="card-body">
-                    <a class="btn btn-primary" href="{{ url('/books') }}">Books</a>
-                    <a class="btn btn-secondary" href="{{ url('/series') }}">Series</a>
-                    @can('allow_system')
-                        <a class="btn btn-warning" href="{{ url('/csv') }}">CSV Import/Export</a>
-                    @endcan
+                    <a class="btn btn-primary btn-block" href="{{ url('/books') }}">List</a>
                 </div>
+
+                <div class="card-header mt-4">Series</div>
+
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <a class="btn btn-secondary btn-block" href="{{ url('/series') }}">Index</a>
+                        </div>
+                    </div>
+                    <form id="search" action="{{ url('/series/search') }}" method="get">
+                        <div class="row mt-2">
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" name="summary__series" id="summary__series">
+                            </div>
+                            <div class="col-sm-2">
+                                <input class="btn btn-success btn-block" type="submit" value="Search">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                @can('allow_system')
+                    <div class="card-header mt-4">CSV</div>
+                    <div class="card-body">
+                        <a class="btn btn-warning btn-block" href="{{ url('/csv') }}">Import/Export</a>
+                    </div>
+                @endcan
             </div>
         </div>
     </div>
