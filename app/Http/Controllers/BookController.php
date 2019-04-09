@@ -63,22 +63,23 @@ class BookController extends Controller
         $isbn = $request->summary__isbn;
         $isbn = str_replace('-', '', $isbn);
         $isbn = str_replace(' ', '', $isbn);
-
-        $book = new Book;
-        $book->summary__isbn = $isbn;
-        $book->onix__RecordReference = $isbn;
-        $book->onix__ProductIdentifier__IDValue = $isbn;
-        $book->summary__cover = $request->summary__cover;
-        $book->summary__title = $request->summary__title;
-        $book->onix__DescriptiveDetail__TitleDetail__TitleText = $request->summary__title;
-        $book->summary__author = $request->summary__author;
-        $book->summary__publisher = $request->summary__publisher;
-        $book->summary__pubdate = $request->summary__pubdate;
-        $book->summary__series = $request->summary__series;
-        $book->summary__volume = $request->summary__volume;
-        $book->userid = $user->id;
-        $book->save();
-        return redirect('books/' . $book->id);
+        if (preg_match("/^([0-9]{10})|([0-9]{13})$/", $isbn)) {
+            $book = new Book;
+            $book->summary__isbn = preg_replace('/^[ 　]+|[ 　]+$/u', '', $isbn);
+            $book->onix__RecordReference = preg_replace('/^[ 　]+|[ 　]+$/u', '', $isbn);
+            $book->onix__ProductIdentifier__IDValue = preg_replace('/^[ 　]+|[ 　]+$/u', '', $isbn);
+            $book->summary__cover = preg_replace('/^[ 　]+|[ 　]+$/u', '', $request->summary__cover);
+            $book->summary__title = preg_replace('/^[ 　]+|[ 　]+$/u', '', $request->summary__title);
+            $book->onix__DescriptiveDetail__TitleDetail__TitleText = preg_replace('/^[ 　]+|[ 　]+$/u', '', $request->summary__title);
+            $book->summary__author = preg_replace('/^[ 　]+|[ 　]+$/u', '', $request->summary__author);
+            $book->summary__publisher = preg_replace('/^[ 　]+|[ 　]+$/u', '', $request->summary__publisher);
+            $book->summary__pubdate = preg_replace('/^[ 　]+|[ 　]+$/u', '', $request->summary__pubdate);
+            $book->summary__series = preg_replace('/^[ 　]+|[ 　]+$/u', '', $request->summary__series);
+            $book->summary__volume =  mb_convert_kana($request->summary__volume, 'n');
+            $book->userid = $user->id;
+            $book->save();
+            return redirect('books/' . $book->id);
+        }
     }
 
     /**

@@ -56,7 +56,7 @@
                 </dl>
             </div>
             <div class="card-footer text-muted">
-                <button class="btn btn-success" type="submit">{{ __('Edit')}}</button>
+                <button class="btn btn-success" type="submit">{{ __('Update')}}</button>
             </div>
         </div>
     </form>

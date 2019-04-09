@@ -44,14 +44,14 @@ function getBdJson(isbn) {
         console.log('[bd] url: ' + url + ' , data: ' + data);
         if (data.length > 0 && data[0] != null) {
             if (data[0].summary.cover != '') {
-                $('#summary__cover').val(data[0].summary.cover);
+                $('#summary__cover').val((data[0].summary.cover).trim());
             }
-            $('#summary__title').val(data[0].summary.title);
-            $('#summary__publisher').val(data[0].summary.publisher);
-            $('#summary__author').val(data[0].summary.author);
-            $('#summary__pubdate').val(data[0].summary.pubdate);
+            $('#summary__title').val((data[0].summary.title).trim());
+            $('#summary__publisher').val((data[0].summary.publisher).trim());
+            $('#summary__author').val((data[0].summary.author).trim());
+            $('#summary__pubdate').val((data[0].summary.pubdate).trim());
             if (data[0].summary.series == '' || data[0].summary.volume == '') {
-                var title = data[0].summary.title;
+                var title = (data[0].summary.title).trim();
 
                 var pat1 = /(\s*[\[(<{＜≪《「『【〔［｛〈（〝“‘]*?[#＃♯第]*[0-9０-９]+[巻]*[\])>}＞≫》」』】〕］｝〉）〟”’]*\s*)/;
                 var titlearr = title.split(pat1);
@@ -63,11 +63,11 @@ function getBdJson(isbn) {
                     } else {
                         lastpart = titlearr.slice(titlearr.length - 1, titlearr.length);
                     }
-                    series = (title + '###').replace((lastpart.join('') + '###'), '');
+                    series = ((title + '###').replace((lastpart.join('') + '###'), '').trim());
                 }
 
                 var pat2 = /\s*[\[(<{＜≪《「『【〔［｛〈（〝“‘#＃♯第巻\])>}＞≫》」』】〕］｝〉）〟”’]+\s*/g;
-                var volume = (title.replace(series, '')).replace(pat2, '');
+                var volume = conv2half(((title.replace(series, '')).replace(pat2, '')).trim());
 
                 $('#summary__series').val(series);
                 $('#summary__volume').val(volume);
@@ -100,11 +100,11 @@ function getNdlJson(isbn) {
                 if (data['records']['record'][0]) {
                     data0 = data['records']['record'][0];
                 }
-                $('#summary__title').val(data0['recordData']['srw_dc_dc']['dc_title']);
-                $('#summary__publisher').val(data0['recordData']['srw_dc_dc']['dc_publisher']);
-                $('#summary__author').val(data0['recordData']['srw_dc_dc']['dc_creator']);
+                $('#summary__title').val((data0['recordData']['srw_dc_dc']['dc_title']).trim());
+                $('#summary__publisher').val((data0['recordData']['srw_dc_dc']['dc_publisher']).trim());
+                $('#summary__author').val((data0['recordData']['srw_dc_dc']['dc_creator']).trim());
 
-                var title = data0['recordData']['srw_dc_dc']['dc_title'];
+                var title = (data0['recordData']['srw_dc_dc']['dc_title']).trim();
 
                 var pat1 = /(\s*[\[(<{＜≪《「『【〔［｛〈（〝“‘]*?[#＃♯第]*[0-9０-９]+[巻]*[\])>}＞≫》」』】〕］｝〉）〟”’]*\s*)/;
                 var titlearr = title.split(pat1);
@@ -116,11 +116,11 @@ function getNdlJson(isbn) {
                     } else {
                         lastpart = titlearr.slice(titlearr.length - 1, titlearr.length);
                     }
-                    series = (title + '###').replace((lastpart.join('') + '###'), '');
+                    series = ((title + '###').replace((lastpart.join('') + '###'), '')).trim();
                 }
 
                 var pat2 = /\s*[\[(<{＜≪《「『【〔［｛〈（〝“‘#＃♯第巻\])>}＞≫》」』】〕］｝〉）〟”’]+\s*/g;
-                var volume = (title.replace(series, '')).replace(pat2, '');
+                var volume = conv2half(((title.replace(series, '')).replace(pat2, '')).trim());
 
                 $('#summary__series').val(series);
                 $('#summary__volume').val(volume);
@@ -140,4 +140,11 @@ function unescapeHTML(str) {
         .replace(/\r/g, "&#13;")
         .replace(/\n/g, "&#10;");
     return div.textContent || div.innerText;
+}
+
+function conv2half(str) {
+    str = str.replace(/[０-９]/g, function (s) {
+        return String.fromCharCode(s.charCodeAt(0) - 0xFEE0);
+    })
+    return str;
 }
