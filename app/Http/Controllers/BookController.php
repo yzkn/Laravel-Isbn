@@ -33,10 +33,19 @@ class BookController extends Controller
      */
     public function create()
     {
+        $book = null;
         if (strlen(Request::input('isbn')) != 0) {
             $isbn = Request::input('isbn');
         } else if (strlen(Request::input('summary__isbn')) != 0) {
             $isbn = Request::input('summary__isbn');
+        } else if (strlen(Request::input('id')) != 0 && \is_numeric(Request::input('id'))) {
+            // Duplicate
+            $book = Book::find(Request::input('id'));
+            if (isset($book)) {
+                $isbn = $book->summary_isbn;
+            } else {
+                $isbn = '';
+            }
         } else {
             $isbn = '';
         }
@@ -47,7 +56,7 @@ class BookController extends Controller
             $readers[$v->id] = $v->name;
         }
 
-        return view('book.create', ['isbn' => $isbn, 'readers' => $readers]);
+        return view('book.create', ['isbn' => $isbn, 'readers' => $readers, 'book' => $book]);
     }
 
     /**

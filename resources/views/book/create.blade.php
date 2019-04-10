@@ -52,19 +52,19 @@
                             <div class="card-body">
                                 <dl class="row">
                                     <dt class="col-md-2">{{ __('Cover') }}</dt>
-                                    <dd class="col-md-10"><input type="text" class="form-control" name="summary__cover" id="summary__cover" value=""></dd>
+                                    <dd class="col-md-10"><input type="text" class="form-control" name="summary__cover" id="summary__cover" value="{{ isset($book)?$book->summary__cover:'' }}"></dd>
                                     <dt class="col-md-2">{{ __('Title') }}</dt>
-                                    <dd class="col-md-10"><input type="text" class="form-control" name="summary__title" id="summary__title" value=""></dd>
+                                    <dd class="col-md-10"><input type="text" class="form-control" name="summary__title" id="summary__title" value="{{ isset($book)?$book->summary__title:'' }}"></dd>
                                     <dt class="col-md-2">{{ __('Author') }}</dt>
-                                    <dd class="col-md-10"><input type="text" class="form-control" name="summary__author" id="summary__author" value=""></dd>
+                                    <dd class="col-md-10"><input type="text" class="form-control" name="summary__author" id="summary__author" value="{{ isset($book)?$book->summary__author:'' }}"></dd>
                                     <dt class="col-md-2">{{ __('Publisher') }}</dt>
-                                    <dd class="col-md-10"><input type="text" class="form-control" name="summary__publisher" id="summary__publisher" value=""></dd>
+                                    <dd class="col-md-10"><input type="text" class="form-control" name="summary__publisher" id="summary__publisher" value="{{ isset($book)?$book->summary__publisher:'' }}"></dd>
                                     <dt class="col-md-2">{{ __('Pubdate') }}</dt>
-                                    <dd class="col-md-10"><input type="text" class="form-control" name="summary__pubdate" id="summary__pubdate" value=""></dd>
+                                    <dd class="col-md-10"><input type="text" class="form-control" name="summary__pubdate" id="summary__pubdate" value="{{ isset($book)?$book->summary__pubdate:'' }}"></dd>
                                     <dt class="col-md-2">{{ __('Series') }}</dt>
-                                    <dd class="col-md-10"><input type="text" class="form-control" name="summary__series" id="summary__series" value=""></dd>
+                                    <dd class="col-md-10"><input type="text" class="form-control" name="summary__series" id="summary__series" value="{{ isset($book)?$book->summary__series:'' }}"></dd>
                                     <dt class="col-md-2">{{ __('Volume') }}</dt>
-                                    <dd class="col-md-10"><input type="text" class="form-control" name="summary__volume" id="summary__volume" value=""></dd>
+                                    <dd class="col-md-10"><input type="text" class="form-control" name="summary__volume" id="summary__volume" value="{{ isset($book)?$book->summary__volume:'' }}"></dd>
                                     <dt class="col-md-2">{{ __('Reader') }}</dt>
                                     <dd class="col-md-10">
                                         <select class="form-control" name="reader_id" value="reader_id">

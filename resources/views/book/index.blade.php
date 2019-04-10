@@ -35,11 +35,13 @@
                     @foreach ($books as $book)
                         <tr>
                             <td>
-                                @if ($isOnline && !empty($book->summary__cover) && exif_imagetype($book->summary__cover))
-                                    <a href="{{ url('books/'.$book->id) }}">
+                                <a href="{{ url('books/'.$book->id) }}">
+                                    @if ($isOnline && !empty($book->summary__cover) && exif_imagetype($book->summary__cover))
                                         <img src="{{ $book->summary__cover }}" class="img-thumbnail summary__cover" />
-                                    </a>
-                                @endif
+                                    @else
+                                        {{ $book->id }}
+                                    @endif
+                                </a>
                             </td>
                             <td class="title">{{ $book->summary__title }}</td>
                             <td class="pubdate">{{ $book->summary__pubdate }}</td>
