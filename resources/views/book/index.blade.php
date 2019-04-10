@@ -47,7 +47,7 @@
                             <td class="pubdate">{{ $book->summary__pubdate }}</td>
                             <td class="author">{{ $book->summary__author }}</td>
                             <td class="publisher">{{ $book->summary__publisher }}</td>
-                            <td>{{ $book->reader->name }}</td>
+                            <<td>{{ isset($book->reader->name)?$book->reader->name:'' }}</td>
                         </tr>
                     @endforeach
                 </tbody>
