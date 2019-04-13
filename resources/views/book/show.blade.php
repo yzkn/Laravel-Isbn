@@ -37,7 +37,7 @@
                 <dt class="col-md-2">{{ __('Volume') }}</dt>
                 <dd class="col-md-10">{{ $book->summary__volume }}</dd>
                 <dt class="col-md-2">{{ __('Reader') }}</dt>
-                <dd class="col-md-10">{{ $book->reader->name }}</dd>
+                <dd class="col-md-10">{{ isset($book->reader->name)?$book->reader->name:'' }}</dd>
             </dl>
             <dl class="row">
                 <dt class="col-md-2">{{ __('Created') }}:</dt>
