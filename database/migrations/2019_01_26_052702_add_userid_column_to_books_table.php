@@ -16,7 +16,7 @@ class AddUseridColumnToBooksTable extends Migration
         Schema::table('books', function (Blueprint $table) {
             $table->integer('reader_id')->unsigned()->default(1);
             $table->foreign('reader_id')
-                ->references('id')->on('users')
+                ->references('id')->on('users')->nullable()
                 // ->onDelete('cascade')
                 ;
         });
