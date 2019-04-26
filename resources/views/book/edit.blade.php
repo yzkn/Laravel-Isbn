@@ -44,9 +44,11 @@
                         @can('allow_system')
                             <select class="form-control" name="reader_id" value="reader_id">
                                 <option value=""></option>
-                                @foreach($readers as $k => $v)
-                                    <option value="{{ $k }}"{{ (($book->reader->id == $k)?' selected':'') }}>{{$v}}</option>
-                                @endforeach
+                                @if(isset($book->reader->id))
+                                    @foreach($readers as $k => $v)
+                                        <option value="{{ $k }}"{{ (($book->reader->id == $k)?' selected':'') }}>{{$v}}</option>
+                                    @endforeach
+                                @endif
                             </select>
                         @else
                         <input type="text" class="form-control" disabled value="{{ $user->name }}">
