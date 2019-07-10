@@ -1,3 +1,5 @@
+{{-- Copyright (c) 2019 YA-androidapp(https://github.com/YA-androidapp) All rights reserved. --}}
+
 @php
     $id_attr = 'modal-delete-' . $table . '-' . $id;
 @endphp

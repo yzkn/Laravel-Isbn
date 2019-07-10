@@ -1,3 +1,5 @@
+# Copyright (c) 2019 YA-androidapp(https://github.com/YA-androidapp) All rights reserved.
+
 <IfModule mod_rewrite.c>
     <IfModule mod_negotiation.c>
         Options -MultiViews -Indexes

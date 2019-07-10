@@ -1,4 +1,5 @@
 <?php
+// Copyright (c) 2019 YA-androidapp(https://github.com/YA-androidapp) All rights reserved.
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
