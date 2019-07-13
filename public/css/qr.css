@@ -1,0 +1,60 @@
+/* Copyright (c) 2019 YA-androidapp(https://github.com/YA-androidapp) All rights reserved. */
+@charset "UTF-8";
+
+.overlay {
+    background-color: rgba(0, 0, 0, 0.3);
+    bottom: 0;
+    left: 0;
+    overflow: hidden;
+    position: fixed;
+    right: 0;
+    top: 0;
+    width: 100%;
+}
+
+.overlay__content {
+    left: 50%;
+    height: 600px;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 800px;
+}
+
+.overlay__close {
+    background-color: white;
+    border-radius: 2rem;
+    border: 3px solid black;
+    box-sizing: content-box;
+    cursor: pointer;
+    font-size: 1.5rem;
+    height: 2rem;
+    line-height: 2rem;
+    margin: -1rem;
+    padding: 0.5rem;
+    position: absolute;
+    right: 0;
+    text-align: center;
+    width: 2rem;
+    z-index: 100;
+}
+
+.overlay__content video {
+    height: 100%;
+    width: 100%;
+}
+
+.overlay__content canvas {
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+}
+
+canvas.drawing,
+canvas.drawingBuffer {
+    left: 0;
+    position: absolute;
+    top: 0;
+}

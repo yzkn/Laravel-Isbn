@@ -15,12 +15,16 @@
         <script src="{{ asset('js/app.js') }}" defer></script>
         <script src="{{ asset('js/jquery-3.3.1.min.js') }}"></script>
         <script src="{{ asset('js/bd.js') }}" defer></script>
+        <script src="{{ asset('js/quagga.js') }}"></script>
+        <script src="{{ asset('js/qr.js') }}" defer></script>
+        <script src="{{ asset('js/scale.fix.js') }}"></script>
 
         <!-- Fonts -->
         <link href="{{ asset('css/nunito.css') }}" rel="stylesheet" type="text/css">
 
         <!-- Styles -->
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/qr.css') }}" rel="stylesheet">
     </head>
     <body>
         <div id="_app">
@@ -46,6 +50,7 @@
                                 <dl class="row">
                                     <dt class="col-md-2">{{ __('ISBN') }}</dt>
                                     <dd class="col-md-10"><input type="text" class="form-control" name="summary__isbn" id="summary__isbn" value="{{ $isbn }}"></dd>
+                                    <button class="btn btn-secondary" type="button" id="isbn_scan">{{ __('Scan')}}</button>
                                     <button class="btn btn-primary" type="button" id="callOpenbdApi">{{ __('Acquire')}}</button>
                                 </dl>
                             </div>
